@@ -54,4 +54,21 @@ router.route("/channelname").post(async (req, res) => {
     res.json(err);
   }
 });
+router.route("/adress").post(async (req, res) => {
+  try {
+    const adress = req.body.adress;
+    console.log(adress);
+    const Result = await Creater.find({ adress: { $eq: adress } });
+    if (Result.length > 0) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+    console.log(Result);
+    // res.send(Result);
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
 module.exports = router;

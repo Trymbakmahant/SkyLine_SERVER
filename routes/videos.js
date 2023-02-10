@@ -4,14 +4,22 @@ const Videos = require("../models/videos");
 
 router.route("/").post(async (req, res) => {
   try {
-    const { adress, description, thumbnail, playerid, totalview, free } =
-      req.body;
+    const {
+      adress,
+      description,
+      thumbnail,
+      playerid,
+      createrprofile,
+      totalview,
+      free,
+    } = req.body;
 
     const product = new Videos({
       adress,
       description,
       thumbnail,
       playerid,
+      createrprofile,
       totalview,
       free,
     });
