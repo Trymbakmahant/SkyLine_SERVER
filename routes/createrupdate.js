@@ -4,6 +4,7 @@ const Creater = require("../models/creater");
 
 router.route("/").post(async (req, res) => {
   try {
+    console.log(req.body);
     const {
       channelname,
       about,
@@ -11,6 +12,7 @@ router.route("/").post(async (req, res) => {
       channelbackground,
       address,
       numberOfSubscribers,
+      name,
     } = req.body;
 
     const product = new Creater({
@@ -20,6 +22,7 @@ router.route("/").post(async (req, res) => {
       channelbackground,
       address,
       numberOfSubscribers,
+      name,
     });
 
     await product.save();
@@ -59,13 +62,13 @@ router.route("/adress").post(async (req, res) => {
     const adress = req.body.adress;
     console.log(adress);
     const Result = await Creater.find({ adress: { $eq: adress } });
-    if (Result.length > 0) {
-      res.send(true);
-    } else {
-      res.send(false);
-    }
+    // if (Result.length > 0) {
+    //   res.send(true);
+    // } else {
+    //   res.send(false);
+    // }
     console.log(Result);
-    // res.send(Result);
+    res.send(Result);
   } catch (err) {
     console.log(err);
     res.json(err);

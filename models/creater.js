@@ -7,6 +7,7 @@ const Creater = new mongoose.Schema({
   channelbackground: { type: String, required: true },
   address: { type: String, required: true },
   numberOfSubscribers: { type: String, required: false },
+  name: { type: String, required: true },
 });
 
 const Creaters = mongoose.model("Creaters", Creater);
