@@ -5,17 +5,20 @@ const Live = require("../models/Live");
 // for uploading lives list
 router.route("/").post(async (req, res) => {
   try {
-    const { adress, streamKEY, streamURL, free } = req.body;
+    const { adress, streamKey, playbackId, free, Thumbnail, Discription } =
+      req.body;
 
     const product = new Live({
       adress,
-      streamKEY,
-      streamURL,
+      streamKey,
+      playbackId,
       free,
+      Thumbnail,
+      Discription,
     });
 
     await product.save();
-
+    console.log(req.body);
     res.send({ message: "sucsses" });
   } catch (err) {
     console.log(err);
