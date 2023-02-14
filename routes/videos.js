@@ -59,11 +59,11 @@ router.route("/id").post(async (req, res) => {
 
 router.route("/adress").post(async (req, res) => {
   try {
-    const adress = req.body.adress;
-    console.log(adress);
-    const Result = await Videos.find({ adress: { $eq: adress } });
+    const address = req.body.address;
+    console.log(req.body);
+    const Result = await Videos.find({ address: { $eq: address } });
 
-    console.log(Result);
+    console.log(Result + "swlfo");
     res.send(Result);
   } catch (err) {
     console.log(err);

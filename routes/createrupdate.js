@@ -14,7 +14,7 @@ router.route("/").post(async (req, res) => {
       numberOfSubscribers,
       name,
     } = req.body;
-
+    console.log(req.body);
     const product = new Creater({
       channelname,
       about,
@@ -61,12 +61,13 @@ router.route("/adress").post(async (req, res) => {
   try {
     const adress = req.body.adress;
     console.log(adress);
-    const Result = await Creater.find({ adress: { $eq: adress } });
+    const Result = await Creater.find({ address: { $eq: adress } });
     // if (Result.length > 0) {
     //   res.send(true);
     // } else {
     //   res.send(false);
     // }
+    console.log(adress);
     console.log(Result);
     res.send(Result);
   } catch (err) {
