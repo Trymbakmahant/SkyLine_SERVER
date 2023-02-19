@@ -49,7 +49,7 @@ router.route("/id").post(async (req, res) => {
     const playerid = req.body.playerid;
 
     const Result = await Videos.find({ playerid: { $eq: playerid } });
-    console.log(Result);
+    //  console.log(Result);
     res.send(Result);
   } catch (err) {
     console.log(err);

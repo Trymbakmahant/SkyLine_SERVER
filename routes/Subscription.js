@@ -5,12 +5,14 @@ const Subscription = require("../models/Subscription");
 router.route("/").post(async (req, res) => {
   try {
     const { channelname, channelprofile, channelAdress, myaddress } = req.body;
-
+    const join = false;
+    console.log(req.body);
     const product = new Subscription({
       channelname,
       channelprofile,
       channelAdress,
       myaddress,
+      join,
     });
 
     await product.save();
@@ -22,24 +24,69 @@ router.route("/").post(async (req, res) => {
   }
 });
 
-router.route("/all").post(async (req, res) => {
+router.route("/check").post(async (req, res) => {
+  const { myaddress, channelAdress } = req.body;
+  console.log(req.body);
   try {
-    const Result = await Subscription.find();
+    const Result = await Subscription.find({
+      $and: [{ myaddress: myaddress }, { channelAdress: channelAdress }],
+    });
 
-    res.send(Result);
+    if (Result.length > 0) {
+      console.log(Result[0].join);
+      if (Result[0].join) {
+        res.send({ flag: true, join: true });
+        console.log("fhwohersdfsred");
+      } else {
+        res.send({ flag: true, join: false });
+        console.log("fhwoher");
+      }
+    } else {
+      res.send({ flag: false });
+    }
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+router.route("/unsubscribe").post(async (req, res) => {
+  const { myaddress, channelAdress } = req.body;
+  console.log(req.body);
+  try {
+    const Result = await Subscription.deleteMany({
+      $and: [{ myaddress: myaddress }, { channelAdress: channelAdress }],
+    });
+
+    console.log(Result.length);
+    res.send("deleted");
   } catch (err) {
     console.log(err);
     res.json(err);
   }
 });
 
-router.route("/id").post(async (req, res) => {
+router.route("/join").post(async (req, res) => {
   try {
-    const id = req.body.id;
-    console.log(id);
-    const Result = await Subscription.find({ _id: { $eq: _id } });
+    const { myaddress, channelAdress, flag } = req.body;
+    console.log(req.body);
+    const Result = await Subscription.find({
+      $and: [{ myaddress: myaddress }, { channelAdress: channelAdress }],
+    });
+
+    if (flag) {
+      const Result = await Subscription.updateOne({
+        $and: [{ myaddress: myaddress }, { channelAdress: channelAdress }],
+        $set: { join: true },
+      });
+      console.log("join");
+    } else {
+      const Result = await Subscription.updateOne({
+        $and: [{ myaddress: myaddress }, { channelAdress: channelAdress }],
+        $set: { join: false },
+      });
+      console.log("unjoin");
+    }
     console.log(Result);
-    res.send(Result);
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -50,7 +97,7 @@ router.route("/adress").post(async (req, res) => {
   try {
     const address = req.body.address;
     console.log(req.body);
-    const Result = await Subscription.find({ address: { $eq: address } });
+    const Result = await Subscription.find({ myaddress: { $eq: address } });
 
     console.log(Result + "swlfo");
     res.send(Result);

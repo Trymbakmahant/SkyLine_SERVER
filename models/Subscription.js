@@ -5,6 +5,7 @@ const Subscription = new mongoose.Schema({
   channelprofile: { type: String, required: true },
   channelAdress: { type: String, required: true },
   myaddress: { type: String, required: true },
+  join: { type: Boolean, required: true },
 });
 
 const Subscriptions = mongoose.model("Subscriptions", Subscription);

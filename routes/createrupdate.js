@@ -68,7 +68,7 @@ router.route("/adress").post(async (req, res) => {
     //   res.send(false);
     // }
     console.log(adress);
-    console.log(Result);
+    // console.log(Result);
     res.send(Result);
   } catch (err) {
     console.log(err);
