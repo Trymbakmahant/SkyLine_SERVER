@@ -5,16 +5,27 @@ const Live = require("../models/Live");
 // for uploading lives list
 router.route("/").post(async (req, res) => {
   try {
-    const { adress, streamKey, playbackId, free, Thumbnail, Discription } =
-      req.body;
+    const {
+      address,
+      description,
+      thumbnail,
+      playerid,
+      title,
+      totalview,
+      createrprofile,
+      free,
+    } = req.body;
+    console.log(req.body);
 
     const product = new Live({
-      adress,
-      streamKey,
-      playbackId,
+      address,
+      description,
+      thumbnail,
+      playerid,
+      title,
+      createrprofile,
+      totalview,
       free,
-      Thumbnail,
-      Discription,
     });
 
     await product.save();
@@ -30,7 +41,7 @@ router.route("/").post(async (req, res) => {
 router.route("/all").post(async (req, res) => {
   try {
     const Result = await Live.find();
-
+    console.log(Result);
     res.send(Result);
   } catch (err) {
     console.log(err);
@@ -40,9 +51,9 @@ router.route("/all").post(async (req, res) => {
 
 router.route("/id").post(async (req, res) => {
   try {
-    const id = req.body.id;
-    console.log(id);
-    const Result = await Live.find({ _id: { $eq: _id } });
+    const playerid = req.body.playerid;
+
+    const Result = await Live.find({ playerid: { $eq: playerid } });
     console.log(Result);
     res.send(Result);
   } catch (err) {
