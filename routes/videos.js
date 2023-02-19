@@ -11,15 +11,17 @@ router.route("/").post(async (req, res) => {
       playerid,
       title,
       totalview,
+      Profile,
       free,
     } = req.body;
-
+    console.log(req.body);
     const product = new Videos({
       address,
       description,
       thumbnail,
       playerid,
       title,
+      createrprofile: Profile,
       totalview,
       free,
     });
